@@ -10,3 +10,10 @@ MODIS/Kiambu.prg
 MODIS/Kiambu.qmd
 
 /MODIS/extracted_aoi
+
+MODIS/modis_outputs
+
+Kiambu.geojson
+notebook_config.json
+MODIS/__pycache__
+MODIS/.ipynb_checkpoints/MODIS_vegetation_production-checkpoint.ipynb
