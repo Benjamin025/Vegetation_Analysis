@@ -186,70 +186,116 @@ class MODISVegetationAnalyzer:
     
     def get_modis_data(self, start_date: str, end_date: str) -> ee.ImageCollection:
         """
-        Fetch MODIS vegetation data
+        Fetch MODIS vegetation data with proper scaling
         
         Args:
             start_date: Start date (YYYY-MM-DD)
             end_date: End date (YYYY-MM-DD)
             
         Returns:
-            Earth Engine ImageCollection
+            Earth Engine ImageCollection with scaled NDVI and EVI
         """
-        def scale_modis(image):
-            """Scale MODIS indices from integer to float (-1 to 1)"""
-            ndvi = image.select('NDVI').multiply(0.0001)
-            evi = image.select('EVI').multiply(0.0001)
-            return image.addBands(ndvi, overwrite=True).addBands(evi, overwrite=True)
+        self.logger.info(f"📡 Fetching MODIS data from {start_date} to {end_date}")
         
-        collection = (ee.ImageCollection(self.config["modis_collection"])
-                     .filterBounds(self.aoi)
-                     .filterDate(start_date, end_date)
-                     .select(['NDVI', 'EVI'])
-                     .map(scale_modis))
+        # Fetch raw MODIS data
+        raw_collection = (ee.ImageCollection(self.config["modis_collection"])
+                         .filterBounds(self.aoi)
+                         .filterDate(start_date, end_date))
         
-        count = collection.size().getInfo()
-        self.logger.info(f"📡 Retrieved {count} MODIS images from {start_date} to {end_date}")
+        count = raw_collection.size().getInfo()
+        self.logger.info(f"   Found {count} MODIS images")
         
-        return collection
+        if count == 0:
+            self.logger.warning("⚠️  No MODIS data found for this date range!")
+            return raw_collection
+        
+        def scale_modis_image(image):
+            """
+            Scale MODIS NDVI and EVI from integer to float
+            MODIS stores as integers (-2000 to 10000)
+            Must multiply by 0.0001 to get actual values (-0.2 to 1.0)
+            """
+            # Get original bands
+            original_ndvi = image.select('NDVI')
+            original_evi = image.select('EVI')
+            
+            # Scale to proper range
+            scaled_ndvi = original_ndvi.multiply(0.0001).rename('NDVI')
+            scaled_evi = original_evi.multiply(0.0001).rename('EVI')
+            
+            # Create new image with scaled bands
+            # Keep other properties/metadata
+            return image.select([]).addBands([scaled_ndvi, scaled_evi]).copyProperties(image, image.propertyNames())
+        
+        # Apply scaling to entire collection
+        scaled_collection = raw_collection.map(scale_modis_image)
+        
+        self.logger.info("   ✅ Applied scaling factor (×0.0001) to NDVI and EVI")
+        
+        return scaled_collection
     
     def calculate_vci(self, collection: ee.ImageCollection, 
                      historical_start: str, historical_end: str) -> ee.ImageCollection:
         """
         Calculate Vegetation Condition Index (VCI)
+        VCI shows current vegetation condition relative to historical range
         
         Args:
-            collection: Current year MODIS collection
-            historical_start: Start of historical period
-            historical_end: End of historical period
+            collection: MODIS ImageCollection (must already be scaled!)
+            historical_start: Start of historical baseline period
+            historical_end: End of historical baseline period
             
         Returns:
-            ImageCollection with VCI band
+            ImageCollection with VCI band added
         """
-        def scale_modis(image):
-            """Scale MODIS NDVI from integer to float"""
-            ndvi = image.select('NDVI').multiply(0.0001)
-            return image.addBands(ndvi, overwrite=True)
+        self.logger.info(f"🧮 Calculating VCI using historical baseline")
+        self.logger.info(f"   Historical period: {historical_start} to {historical_end}")
         
-        # Get historical data for baseline
-        historical = (ee.ImageCollection(self.config["modis_collection"])
-                     .filterBounds(self.aoi)
-                     .filterDate(historical_start, historical_end)
-                     .select('NDVI')
-                     .map(scale_modis))
+        # Get historical MODIS data and scale it
+        historical_raw = (ee.ImageCollection(self.config["modis_collection"])
+                         .filterBounds(self.aoi)
+                         .filterDate(historical_start, historical_end))
         
-        # Calculate historical min and max
-        ndvi_min = historical.min()
-        ndvi_max = historical.max()
+        hist_count = historical_raw.size().getInfo()
+        self.logger.info(f"   Found {hist_count} historical images")
+        
+        def scale_ndvi(image):
+            """Scale historical NDVI"""
+            scaled = image.select('NDVI').multiply(0.0001).rename('NDVI')
+            return image.select([]).addBands(scaled).copyProperties(image, image.propertyNames())
+        
+        historical = historical_raw.map(scale_ndvi)
+        
+        # Calculate historical min and max (for VCI baseline)
+        ndvi_min = historical.select('NDVI').min()
+        ndvi_max = historical.select('NDVI').max()
+        
+        self.logger.info("   ✅ Historical baseline calculated")
         
         def compute_vci(image):
+            """
+            Compute VCI for one image
+            VCI = (NDVI - NDVI_min) / (NDVI_max - NDVI_min) × 100
+            """
+            # Get the NDVI band (already scaled from get_modis_data)
             ndvi = image.select('NDVI')
-            # VCI = (NDVI - NDVI_min) / (NDVI_max - NDVI_min) * 100
-            vci = ndvi.subtract(ndvi_min).divide(ndvi_max.subtract(ndvi_min)).multiply(100)
-            # Clamp VCI to 0-100 range
-            vci = vci.clamp(0, 100)
-            return image.addBands(vci.rename('VCI'))
+            
+            # Calculate VCI
+            vci = (ndvi.subtract(ndvi_min)
+                      .divide(ndvi_max.subtract(ndvi_min))
+                      .multiply(100)
+                      .clamp(0, 100)  # Ensure 0-100 range
+                      .rename('VCI'))
+            
+            # Add VCI band to existing image
+            return image.addBands(vci)
         
-        return collection.map(compute_vci)
+        # Apply VCI calculation to all images
+        collection_with_vci = collection.map(compute_vci)
+        
+        self.logger.info("   ✅ VCI calculated and added to collection")
+        
+        return collection_with_vci
     
     def create_monthly_composites(self, collection: ee.ImageCollection, 
                                  year: int) -> Dict:
@@ -337,6 +383,41 @@ class MODISVegetationAnalyzer:
             urllib.request.urlretrieve(url, filepath)
         except Exception as e:
             self.logger.warning(f"Failed to download {filepath.name}: {e}")
+    
+    def debug_collection_values(self, collection: ee.ImageCollection, name: str = "Collection"):
+        """
+        Debug helper to check actual values in the collection
+        
+        Args:
+            collection: Collection to check
+            name: Name for logging
+        """
+        self.logger.info(f"🐛 DEBUG: Checking {name}")
+        
+        try:
+            # Get first image
+            first = collection.first()
+            
+            # Get a sample point from AOI center
+            centroid = self.aoi.geometry().centroid()
+            
+            # Check each band
+            for band in ['NDVI', 'EVI', 'VCI']:
+                try:
+                    stats = first.select(band).reduceRegion(
+                        reducer=ee.Reducer.mean(),
+                        geometry=centroid,
+                        scale=self.config["scale"]
+                    ).getInfo()
+                    
+                    value = stats.get(band)
+                    self.logger.info(f"  {band}: {value}")
+                    
+                except Exception as e:
+                    self.logger.debug(f"  {band}: not available ({e})")
+                    
+        except Exception as e:
+            self.logger.error(f"  Debug failed: {e}")
     
     def calculate_statistics(self, collection: ee.ImageCollection, 
                             year: int) -> pd.DataFrame:
@@ -547,9 +628,11 @@ class MODISVegetationAnalyzer:
         
         # Get MODIS data
         collection = self.get_modis_data(start_date, end_date)
+        self.debug_collection_values(collection, "After get_modis_data (should be scaled)")
         
         # Calculate VCI
         collection = self.calculate_vci(collection, historical_start, historical_end)
+        self.debug_collection_values(collection, "After calculate_vci (should have VCI band)")
         
         # Create monthly composites
         composites = self.create_monthly_composites(collection, year)
