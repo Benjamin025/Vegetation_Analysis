@@ -86,7 +86,7 @@ def create_upload_widget(**kwargs):
         >>> display(widget)
     """
     try:
-        import ipywidgets as widgets
+        import ipywidgets as widgets # type: ignore
     except ImportError:
         raise ImportError("ipywidgets not installed. Install with: pip install ipywidgets")
     
