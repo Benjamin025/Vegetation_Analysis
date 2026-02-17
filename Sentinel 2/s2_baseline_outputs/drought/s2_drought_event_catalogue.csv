@@ -1,0 +1,10 @@
+Year,Month,NDVI,Baseline mean,Anomaly,Z-score,VCI,% Anomaly,Class (Z),Class (VCI)
+2023,Jan,0.543,0.583,-0.0401,-1.5999,4.506,-6.8729,severe,extreme
+2023,Feb,0.4162,0.5706,-0.1544,-2.4884,0.0,-27.061,extreme,extreme
+2023,Mar,0.3624,0.4897,-0.1273,-2.6545,0.0,-25.9877,extreme,extreme
+2023,Apr,0.3226,0.4564,-0.1338,-1.0772,0.0,-29.3222,moderate,extreme
+2023,May,0.3994,0.5031,-0.1037,-1.2362,0.0,-20.6081,moderate,extreme
+2023,Jul,0.1529,0.458,-0.305,-6.1801,0.0,-66.6048,extreme,extreme
+2023,Sep,0.2999,0.386,-0.0861,-1.0777,17.0442,-22.2962,moderate,severe
+2023,Oct,0.3753,0.4322,-0.0569,-1.0327,14.9291,-13.1665,moderate,severe
+2024,Jan,0.4921,0.583,-0.0909,-3.629,0.0,-15.5896,extreme,extreme
