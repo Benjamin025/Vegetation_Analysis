@@ -17,3 +17,6 @@ Kiambu.geojson
 notebook_config.json
 MODIS/__pycache__
 MODIS/.ipynb_checkpoints/MODIS_vegetation_production-checkpoint.ipynb
+MODIS/.ipynb_checkpoints
+MODIS/extracted_aoi
+MODIS/trend_lines
