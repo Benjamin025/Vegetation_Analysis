@@ -143,7 +143,7 @@ Agreement between Z-score and VCI classifications increases confidence in a drou
 
 The MODIS baseline draws on **21 years of monthly NDVI and EVI observations (2000–2020)** — 252 monthly composites per index at 250 m. With 21 independent annual observations per calendar month, the standard error of the climatological mean is approximately σ/√21 ≈ 0.22σ, providing a statistically robust reference surface. The ribbon plot below shows the seasonal cycle with its full uncertainty envelope.
 
-![MODIS Baseline Climatology Ribbon](Vegetation_Analysis/MODIS/baseline_outputs/baseline/climatology_ribbon.png)
+![MODIS Baseline Climatology Ribbon](MODIS/baseline_outputs/baseline/climatology_ribbon.png)
 
 *Figure 1 — MODIS 20-year monthly climatology (2000–2020). The outer light shading is the 10th–90th percentile envelope; mid shading is ±1 standard deviation; the line is the climatological mean. Wide ribbons indicate high inter-annual variability; narrow ribbons indicate stable months.*
 
@@ -153,7 +153,7 @@ The NDVI annual cycle reflects the bimodal rainfall pattern characteristic of eq
 
 Annual mean NDVI and EVI computed across the 21-year baseline reveal whether the AOI experienced a systematic greening or browning trend prior to the analysis period — critical context for interpreting anomalies.
 
-![MODIS Annual Baseline Trend](Vegetation_Analysis/MODIS/baseline_outputs/baseline/annual_trend_baseline.png)
+![MODIS Annual Baseline Trend](MODIS/baseline_outputs/baseline/annual_trend_baseline.png)
 
 *Figure 2 — Annual mean NDVI and EVI across the MODIS baseline period (2000–2020) with OLS linear trend line. Slope, r-value, and p-value are annotated in the legend. A positive slope indicates greening; negative indicates browning.*
 
@@ -163,11 +163,11 @@ The 21-year MODIS baseline is long enough for even a modest but real trend (~0.0
 
 The anomaly analysis places monthly 2021–2024 observations against the 2000–2020 baseline uncertainty envelope, answering two questions simultaneously: how does observed vegetation compare to climatological expectation (upper panel), and how statistically unusual is that departure (lower Z-score panel)?
 
-![MODIS NDVI Anomaly Time-Series](Vegetation_Analysis/MODIS/baseline_outputs/anomalies/ndvi_anomaly_timeseries.png)
+![MODIS NDVI Anomaly Time-Series](MODIS/baseline_outputs/anomalies/ndvi_anomaly_timeseries.png)
 
 *Figure 3 — MODIS NDVI anomaly time-series (2021–2024). Upper panel: observed monthly NDVI (black line) overlaid on the baseline mean (dashed) and uncertainty ribbons. Lower panel: Z-score bars colour-coded by drought class. Vertical dotted lines separate analysis years.*
 
-![MODIS EVI Anomaly Time-Series](Vegetation_Analysis/MODIS/baseline_outputs/anomalies/evi_anomaly_timeseries.png)
+![MODIS EVI Anomaly Time-Series](MODIS/baseline_outputs/anomalies/evi_anomaly_timeseries.png)
 
 *Figure 4 — MODIS EVI anomaly time-series (2021–2024), identical layout to Figure 3.*
 
@@ -179,7 +179,7 @@ NDVI and EVI generally co-vary. Where they diverge, EVI tends to respond more st
 
 The VCI time-series contextualises observations relative to the full 21-year historical range — the most comprehensive relative stress indicator in this framework.
 
-![MODIS VCI Time-Series](Vegetation_Analysis/MODIS/baseline_outputs/drought/vci_timeseries.png)
+![MODIS VCI Time-Series](MODIS/baseline_outputs/drought/vci_timeseries.png)
 
 *Figure 5 — MODIS NDVI-based VCI (2021–2024) against the 20-year baseline. Horizontal coloured bands show drought classification thresholds. Points are colour-coded by VCI class. VCI below 35 constitutes moderate-or-worse drought conditions.*
 
@@ -189,11 +189,11 @@ Unlike the Z-score, VCI is bounded [0, 100] and directly communicates relative v
 
 The year × month heatmap provides the most compact operational view — a single figure showing the drought class for every month of the analysis period simultaneously.
 
-![MODIS Drought Heatmap Z-score](Vegetation_Analysis/MODIS/baseline_outputs/drought/drought_heatmap_zscore.png)
+![MODIS Drought Heatmap Z-score](MODIS/baseline_outputs/drought/drought_heatmap_zscore.png)
 
 *Figure 6 — MODIS drought classification heatmap by Z-score (2021–2024). Each cell is one calendar month; colour and abbreviation encode drought class: EX (Extreme), SV (Severe), MD (Moderate), ML (Mild), NL (Normal), AN (Above Normal).*
 
-![MODIS Drought Heatmap VCI](Vegetation_Analysis/MODIS/baseline_outputs/drought/drought_heatmap_vci.png)
+![MODIS Drought Heatmap VCI](MODIS/baseline_outputs/drought/drought_heatmap_vci.png)
 
 *Figure 7 — MODIS drought classification heatmap by VCI (2021–2024), identical structure to Figure 6.*
 
@@ -203,7 +203,7 @@ Comparing the Z-score and VCI heatmaps reveals where both methods agree (robust 
 
 Percentage anomaly bars offer the most intuitively accessible metric — departure from the baseline mean expressed simply as a percentage.
 
-![MODIS Percentage Anomaly Bars](Vegetation_Analysis/MODIS/baseline_outputs/anomalies/ndvi_pct_anomaly_bars.png)
+![MODIS Percentage Anomaly Bars](MODIS/baseline_outputs/anomalies/ndvi_pct_anomaly_bars.png)
 
 *Figure 8 — MODIS NDVI percentage anomaly by month and year (2021–2024). Red bars = below-normal; blue bars = above-normal. Dashed lines at ±10% mark an approximate operational significance threshold. Values are annotated on each bar.*
 
@@ -213,7 +213,7 @@ Departures within ±10% of the climatological mean typically fall within the nat
 
 Aggregating anomalies by season (DJF, MAM, JJA, SON) reveals which rainfall windows are most impacted across analysis years, a critical distinction for agricultural advisory and food security assessment.
 
-![MODIS Seasonal Anomaly](Vegetation_Analysis/MODIS/baseline_outputs/anomalies/seasonal_anomaly.png)
+![MODIS Seasonal Anomaly](MODIS/baseline_outputs/anomalies/seasonal_anomaly.png)
 
 *Figure 9 — MODIS NDVI seasonal anomalies by year (2021–2024). Each annual cluster contains bars for the four meteorological seasons. Negative bars indicate below-normal seasonal vegetation relative to the 20-year baseline.*
 
@@ -223,7 +223,7 @@ A severe negative anomaly in MAM (long rains) has fundamentally different implic
 
 Combining baseline (2000–2020) and analysis (2021–2024) into a single continuous view reveals whether the analysis period is anomalously high or low relative to the entire historical record.
 
-![MODIS Long-Term Combined](Vegetation_Analysis/MODIS/baseline_outputs/trends/longterm_combined.png)
+![MODIS Long-Term Combined](MODIS/baseline_outputs/trends/longterm_combined.png)
 
 *Figure 10 — MODIS full vegetation record (2000–2024). Baseline years in green/blue; analysis years in red. The dashed horizontal line is the 2000–2020 period mean. The OLS trend line spans the complete 24-year record.*
 
@@ -233,7 +233,7 @@ This is the most important single output for long-term change assessment. Analys
 
 The three-panel summary consolidates drought statistics across the entire 2021–2024 analysis period.
 
-![MODIS Drought Summary](Vegetation_Analysis/MODIS/baseline_outputs/drought/drought_summary.png)
+![MODIS Drought Summary](MODIS/baseline_outputs/drought/drought_summary.png)
 
 *Figure 11 — MODIS drought summary for 2021–2024. Panel A: total months per drought class. Panel B: how frequently each calendar month experienced drought. Panel C: annual drought severity (mean |Z-score| of drought months only).*
 
@@ -249,7 +249,7 @@ Panel A gives the aggregate budget — how many months fell into each class over
 
 The Sentinel-2 baseline spans **six years (2017–2022)** of full dual-satellite operation providing approximately 5-day global revisit. While shorter than the MODIS baseline, the 10 m spatial resolution compensates by characterising sub-kilometre vegetation heterogeneity inaccessible to MODIS. The cloud masking pipeline (QA60 bits 10 & 11) combined with a `CLOUDY_PIXEL_PERCENTAGE < 50%` pre-filter yields a clean monthly composite stack.
 
-![S2 Baseline Climatology Ribbon](Vegetation_Analysis/Sentinel%202/s2_baseline_outputs/baseline/s2_climatology_ribbon.png)  
+![S2 Baseline Climatology Ribbon](Sentinel%202/s2_baseline_outputs/baseline/s2_climatology_ribbon.png)  
 
 *Figure 12 — Sentinel-2 monthly climatology (2017–2022). Shaded bands show the 10th–90th percentile envelope (light), ±1 SD (mid), and the climatological mean (line). Wet season periods (MAM and OND) are shaded in light blue. Ribbons are wider than MODIS counterparts due to the shorter baseline sample.*
 
@@ -261,7 +261,7 @@ The 10th–90th percentile ribbons are wider in the Sentinel-2 climatology than 
 
 Over the 2017–2022 baseline, the annual mean Sentinel-2 NDVI and EVI are examined for within-baseline trends. A six-year trend is less statistically reliable than the 21-year MODIS trend, but meaningful trends driven by land use change or multi-year drought/recovery cycles can still be detected.
 
-![S2 Annual Baseline Trend](Vegetation_Analysis/Sentinel%202/s2_baseline_outputs/baseline/s2_annual_trend_baseline.png)
+![S2 Annual Baseline Trend](Sentinel%202/s2_baseline_outputs/baseline/s2_annual_trend_baseline.png)
 
 *Figure 13 — Annual mean Sentinel-2 NDVI and EVI across the baseline period (2017–2022) with OLS trend line.*
 
@@ -271,11 +271,11 @@ If one of the six baseline years was unusually dry (or wet), it has disproportio
 
 The Sentinel-2 anomaly analysis covers the **2023–2024 analysis period** against the 2017–2022 baseline. Wet season periods (MAM and OND) are shaded in light blue on all time-series plots.
 
-![S2 NDVI Anomaly Time-Series](Vegetation_Analysis/Sentinel%202/s2_baseline_outputs/anomalies/s2_ndvi_anomaly_timeseries.png)
+![S2 NDVI Anomaly Time-Series](Sentinel%202/s2_baseline_outputs/anomalies/s2_ndvi_anomaly_timeseries.png)
 
 *Figure 14 — Sentinel-2 NDVI anomaly time-series (2023–2024). Upper panel: observed NDVI against baseline ribbon. Lower panel: Z-score bars colour-coded by drought class. Wet seasons are shaded light blue.*
 
-![S2 EVI Anomaly Time-Series](Vegetation_Analysis/Sentinel%202/s2_baseline_outputs/anomalies/s2_evi_anomaly_timeseries.png)
+![S2 EVI Anomaly Time-Series](Sentinel%202/s2_baseline_outputs/anomalies/s2_evi_anomaly_timeseries.png)
 
 *Figure 15 — Sentinel-2 EVI anomaly time-series (2023–2024), identical layout.*
 
@@ -285,7 +285,7 @@ A known issue in the existing Sentinel-2 output data — visible in the monthly 
 
 ### 6.4 Vegetation Condition Index
 
-![S2 VCI Time-Series](Vegetation_Analysis/Sentinel%202/s2_baseline_outputs/drought/s2_vci_timeseries.png)
+![S2 VCI Time-Series](Sentinel%202/s2_baseline_outputs/drought/s2_vci_timeseries.png)
 
 *Figure 16 — Sentinel-2 NDVI-based VCI (2023–2024) against the 2017–2022 baseline. Drought classification bands and wet season shading shown. Points colour-coded by VCI class.*
 
@@ -293,11 +293,11 @@ The Sentinel-2 VCI uses the same per-calendar-month normalisation as the MODIS V
 
 ### 6.5 Drought Classification & Heatmap
 
-![S2 Drought Heatmap Z-score](Vegetation_Analysis/Sentinel%202/s2_baseline_outputs/drought/s2_drought_heatmap_zscore.png)
+![S2 Drought Heatmap Z-score](Sentinel%202/s2_baseline_outputs/drought/s2_drought_heatmap_zscore.png)
 
 *Figure 17 — Sentinel-2 drought classification heatmap by Z-score (2023–2024).*
 
-![S2 Drought Heatmap VCI](Vegetation_Analysis/Sentinel%202/s2_baseline_outputs/drought/s2_drought_heatmap_vci.png)
+![S2 Drought Heatmap VCI](Sentinel%202/s2_baseline_outputs/drought/s2_drought_heatmap_vci.png)
 
 *Figure 18 — Sentinel-2 drought classification heatmap by VCI (2023–2024).*
 
@@ -305,7 +305,7 @@ The Sentinel-2 heatmap spans fewer years than the MODIS equivalent, but each cel
 
 ### 6.6 Percentage Anomaly
 
-![S2 Percentage Anomaly Bars](Vegetation_Analysis/Sentinel%202/s2_baseline_outputs/anomalies/s2_ndvi_pct_anomaly_bars.png)
+![S2 Percentage Anomaly Bars](Sentinel%202/s2_baseline_outputs/anomalies/s2_ndvi_pct_anomaly_bars.png)
 
 *Figure 19 — Sentinel-2 NDVI percentage anomaly by month and year (2023–2024). Wet season months highlighted in light blue. Values annotated on each bar.*
 
@@ -315,7 +315,7 @@ Wet season anomaly bars (highlighted in light blue) receive priority interpretat
 
 The Sentinel-2 pipeline uses the OND season label (October-November-December) in place of the generic SON, correctly reflecting the East African short rains pattern centred on October–November rather than September–October.
 
-![S2 Seasonal Anomaly](Vegetation_Analysis/Sentinel%202/s2_baseline_outputs/anomalies/s2_seasonal_anomaly.png)
+![S2 Seasonal Anomaly](Sentinel%202/s2_baseline_outputs/anomalies/s2_seasonal_anomaly.png)
 
 *Figure 20 — Sentinel-2 NDVI seasonal anomalies by year (2023–2024). Seasons: DJF (dry inter-monsoon), MAM (long rains), JJA (dry season), OND (short rains).*
 
@@ -323,7 +323,7 @@ With only two analysis years, the Sentinel-2 seasonal decomposition captures the
 
 ### 6.8 Full Long-Term Record
 
-![S2 Long-Term Combined](Vegetation_Analysis/Sentinel%202/s2_baseline_outputs/trends/s2_longterm_combined.png)
+![S2 Long-Term Combined](Sentinel%202/s2_baseline_outputs/trends/s2_longterm_combined.png)
 
 *Figure 21 — Sentinel-2 full vegetation record (2017–2024). Baseline years (2017–2022) in green/blue; analysis years (2023–2024) in red. Dashed line marks the baseline period mean.*
 
@@ -331,7 +331,7 @@ The combined Sentinel-2 view, spanning eight years, places the two analysis year
 
 ### 6.9 Drought Frequency & Severity Summary
 
-![S2 Drought Summary](Vegetation_Analysis/Sentinel%202/s2_baseline_outputs/drought/s2_drought_summary.png)
+![S2 Drought Summary](Sentinel%202/s2_baseline_outputs/drought/s2_drought_summary.png)
 
 *Figure 22 — Sentinel-2 drought summary for 2023–2024. Same three-panel structure as Figure 11: class frequency, monthly drought recurrence, and annual severity.*
 
