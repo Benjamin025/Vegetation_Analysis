@@ -508,3 +508,5 @@ The deliberate harmonisation of the analytical framework — identical threshold
 ---
 
 *End of Report — Multi-Sensor Vegetation Baseline & Anomaly Analysis*
+
+*Karanja Benjamin Ndung'u*
