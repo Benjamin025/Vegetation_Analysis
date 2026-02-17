@@ -1,8 +1,8 @@
 # Multi-Sensor Vegetation Baseline & Anomaly Analysis Report
 
 **Sensors:** MODIS MOD13Q1 · Sentinel-2 SR Harmonised  
-**Prepared by:** Vegetation Monitoring Pipeline  
-**Date:** 2025  
+**Prepared by:** Karanja Benjamin Ndung'u 
+**Date:** 2026 
 **Classification:** Technical Analysis Report
 
 ---
