@@ -20,3 +20,5 @@ MODIS/.ipynb_checkpoints/MODIS_vegetation_production-checkpoint.ipynb
 MODIS/.ipynb_checkpoints
 MODIS/extracted_aoi
 MODIS/trend_lines
+
+MODIS/baseline_outputs
